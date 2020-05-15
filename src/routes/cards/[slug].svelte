@@ -16,7 +16,9 @@
 	export let data;
 	export let browser;
 	export let surveyURL;
-	import CardsWrapper from "../../components/CardsWrapper.svelte";
+  import { fly } from "svelte/transition";
+	import Browser from "../../components/Browser.svelte";
+	import Content from "../../components/Content.svelte";
 	import Card from "../../components/Card.svelte";
 	import Set from "../../components/Set.svelte";
 	const {cards} = data;
@@ -36,14 +38,36 @@ a {
 a:hover {
 	background: rgba(12, 12, 13, .05);
 }
+
+.singleton-wrapper {
+	margin: 0 auto;
+}
 </style>
 
-<CardsWrapper {browser}>
-	{#if cards.length === 1}
-		<a href="/">&larr; home</a>
-		<Card {...cards[0]} {browser}/>
+<svelte:head>
+  <title>Welcome to Firefox</title>
+</svelte:head>
 
-		{:else}
+{#if browser}
+	<Browser {browser}>
+		{#if cards.length > 1}
 			<Set set={cards} {browser} survey={surveyURL} on:message/>
-	{/if}
-</CardsWrapper>
+		{:else}
+			<a href="/" out:fly="{{duration: 200, y: -40}}">&larr; home</a>
+			<div class="singleton-wrapper">
+				<Card {...cards[0]} {browser}/>
+			</div>
+		{/if}
+	</Browser>
+	{:else}
+	<Content>
+		{#if cards.length > 1}
+			<Set set={cards} {browser} survey={surveyURL} on:message/>
+		{:else}
+			<a href="/" out:fly="{{duration: 200, y: -40}}">&larr; home</a>
+			<div class="singleton-wrapper">
+				<Card {...cards[0]} {browser}/>
+			</div>
+		{/if}
+	</Content>
+{/if}

@@ -12,6 +12,7 @@
 
   $: showAdmin = filteredIds.length > 0;
   $: idString = filteredIds.toString();
+  $: disabled = filteredIds.length < 2;
 
   cards.forEach((cards, index) => {
     selected[index] = false;
@@ -28,22 +29,24 @@
   };
 
   const handleAdminButtonClick = event => {
-    const url = `/cards/${idString}?${browser ? 'browser' : ''}&survey=${surveyURL}`;
+    const url = `/cards/${idString}?${
+      browser ? "browser" : ""
+    }&survey=${surveyURL}`;
     window.location = url;
   };
 
   const clearSelection = event => {
     filteredIds = [];
     selected = selected.map(i => false);
-  }
+  };
 </script>
 
 <style>
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-auto-rows: 240px;
     grid-gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     list-style: none;
     margin: 0 0 100px;
     padding: 0;
@@ -54,16 +57,15 @@
   }
 
   .grid h2 {
+    font-size: 16px;
+    left: 10px;
     position: absolute;
     top: 10px;
-    left: 10px;
-    font-size: 16px;
   }
 
   .card-preview-wrapper {
-    box-shadow: 0 5px 18px rgba(12, 12, 13, 0.1),
-      0 0 0 1px rgba(12, 12, 13, 0.05);
-    border-radius: 8px;
+    border-radius: 4px;
+    box-shadow: 0 5px 18px rgba(12, 12, 13, 0.1), 0 0 0 1px rgba(12, 12, 13, 0.05);
     display: flex;
     flex-direction: column;
     height: 240px;
@@ -74,18 +76,18 @@
   input[type="checkbox"] {
     border-radius: 50%;
     height: 32px;
-    width: 32px;
     margin: 0;
     padding: 0;
+    width: 32px;
   }
 
   input[type="text"] {
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 16px;
     border-radius: 2px;
     border: 1px solid #ccc;
     display: block;
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 10px;
   }
 
   .grid input {
@@ -97,10 +99,10 @@
 
   .admin {
     background: rgba(255, 255, 255, 0.98);
+    bottom: 0;
     box-shadow: 0 -5px 18px rgba(12, 12, 13, 0.1);
     padding: 24px;
     position: fixed;
-    bottom: 0;
     right: 0;
     z-index: 1;
   }
@@ -110,34 +112,39 @@
   }
 
   label {
-    display: flex;
     align-items: center;
-    margin-top: 16px;
+    display: flex;
     font-weight: bold;
+    margin-top: 16px;
   }
 
   button {
-    font-weight: 700;
-    font-family: metropolis;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    height: 48px;
-    padding: 24px;
-    border-radius: 4px;
-    margin: 24px 0 0;
-    color: #fff;
     background: #0060df;
+    border-radius: 4px;
     border: 0;
+    color: #fff;
+    display: flex;
+    font-family: metropolis;
     font-size: 16px;
-    transition: background 75ms;
+    font-weight: 700;
+    height: 48px;
+    justify-content: center;
+    margin: 24px 0 0;
+    padding: 24px;
+    transition: background 150ms;
   }
 
-  button:hover {
+  button[disabled] {
+    opacity: .25;
+    background: #999;
+  }
+
+  button:hover:not[disabled] {
     background: #0250bb;
   }
 
-  button:active {
+  button:active:not[disabled] {
     background: #073072;
   }
 
@@ -173,9 +180,7 @@
   <div class="admin" transition:fly={{ y: 200, duration: 250 }}>
     <h3>
       IDs Selected:
-      <Zap>
-        {idString}
-      </Zap>
+      <Zap>{idString}</Zap>
     </h3>
 
     <label>
@@ -183,8 +188,8 @@
       <input type="checkbox" bind:checked={browser} />
     </label>
     <label>Add a survey URL</label>
-    <input type="text" placeholder="add a url" bind:value={surveyURL} />
-    <button on:click={handleAdminButtonClick}>Make me a flow!</button>
+    <input type="text" placeholder="URL HERE" bind:value={surveyURL} />
+    <button on:click={handleAdminButtonClick} {disabled}>Make me a flow!</button>
     <p on:click={clearSelection}>Clear selection</p>
   </div>
 {/if}

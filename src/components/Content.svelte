@@ -1,31 +1,31 @@
+<!--
+  Sets Slightly different CSS for the parent depending
+  if card is rendered inside or outside of the fake
+  browser harness
+-->
+
 <script>
   export let browser = false;
-  import Zap from "./Zap.svelte";
 </script>
 
 <style>
-
 .browser,
 .no-browser {
   display: flex;
-  overflow-y: hidden;
+  overflow: hidden;
   background: #f9f9fa;
+  position: relative;
+    justify-content: center;
 }
 
 .no-browser {
   height: 100vh;
-  overflow: hidden;
-  display: flex;
-  width: 100%;
-  justify-content: center;
+  width: 100vw;
 }
 
 .browser {
   height: 100%;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
 }
 </style>
 

@@ -12,7 +12,6 @@ cards.forEach((card) => {
 export async function get(req, res, next) {
   const { slug } = req.params;
 
-  console.log(slug);
   let data = {
     cards: [],
     status: 200,

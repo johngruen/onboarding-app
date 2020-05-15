@@ -20,8 +20,8 @@
 
   const scale = preview ? "transform: scale(50%)" : '';
 
-	import { fly, fade, blur } from 'svelte/transition';
   import { createEventDispatcher } from "svelte";
+  import { fly, fade, blur } from 'svelte/transition';
 
   const dispatch = createEventDispatcher();
 
@@ -77,8 +77,8 @@
 </style>
 
 {#if visible}
-  <div class="card" style={scale} in:fade="{{duration: 500, delay: 200}}" out:fade="{{x: -100, duration: 200}}">
-    <div class="card-content" style={paddingTop}>
+    <div class="card" style={scale}>
+    <div class="card-content" style={paddingTop} in:fade="{{duration: 500, delay: 200}}" out:fly="{{x: -100, duration: 250}}">
       {#if showLogo}
         <Logo box={96} margin={24} />
       {/if}
