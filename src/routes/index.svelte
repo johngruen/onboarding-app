@@ -1,8 +1,6 @@
 <script context="module">
   export async function preload({ query }) {
-    const res = await this.fetch(
-      `./api.json`
-    );
+    const res = await this.fetch(`./api.json`);
     const data = await res.json();
     if (res.status === 200) {
       return { cards: data };
@@ -20,13 +18,13 @@
 </script>
 
 <style>
-	.app-wrapper {
-		margin: 0 auto 24px;
-		max-width: 1280px;
-		width: 90%;
+  .app-wrapper {
+    margin: 0 auto 24px;
+    max-width: 1280px;
+    width: 90%;
   }
 
-  header{
+  header {
     position: fixed;
     top: 0;
     height: 64px;
@@ -41,7 +39,7 @@
   .header-content {
     margin: 0 auto;
     max-width: 1280px;
-		width: 90%;
+    width: 90%;
   }
 
   h1 {
@@ -52,7 +50,6 @@
   .pg-wrapper {
     margin-top: 72px;
   }
-
 </style>
 
 <svelte:head>
@@ -62,9 +59,15 @@
 <div class="app-wrapper">
   <header>
     <div class="header-content">
-    	  <h1 in:blur="{{duration: 200, delay: 200}}">The <Zap zapId={1}>Onboarding</Zap> Machine</h1>
+      <h1 in:blur={{ duration: 200, delay: 200 }}>
+        The
+        <Zap zapId={1}>Onboarding</Zap>
+        Machine
+      </h1>
     </div>
 
   </header>
-  <div class="pg-wrapper"><PreviewGrid {cards} /></div>
+  <div class="pg-wrapper">
+    <PreviewGrid {cards} />
+  </div>
 </div>

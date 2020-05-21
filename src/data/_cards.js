@@ -4,7 +4,14 @@ const cards = [
     headerContent: `Welcome to <Zap>Firefox</Zap>.`,
     content: `The fast, safe and private browser that's backed by a non-profit.`,
     buttonText: "Start Setup",
-    zapId: 9,
+    zapId: 4,
+  },
+  {
+    id: "intro-pizza",
+    headerContent: `Welcome to <Zap>Firefox</Zap>!`,
+    content: `The fast, safe and private browser that's backed by a non-profit.`,
+    buttonText: "Start Setup",
+    zapId: 4,
   },
   {
     id: "intro-2",
@@ -60,10 +67,11 @@ const cards = [
   {
     id: "sync-1",
     headerContent: "Ready for <Zap>launch</Zap>!",
-    content: "Want so sync your browsing data across all your devices? Enter your email and we'll do the rest.",
+    content:
+      "Want so sync your browsing data across all your devices? Enter your email and we'll do the rest.",
     buttonText: "Sign In",
     skipText: "No thanks, I'm ready to browse",
-    widget: "auth"
+    widget: "auth",
   },
 ];
 

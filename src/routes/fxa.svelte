@@ -7,6 +7,4 @@
   }
 </style>
 
-<div>
-
-</div>
+<div />

@@ -13,7 +13,7 @@
     flex: 0 0 420px;
   }
 
-  .c  {
+  .c {
     background: url(../chrome-c.png);
     flex: 1 1;
   }
@@ -24,9 +24,8 @@
   }
 </style>
 
-
 <div class="chrome">
-  <div class="l"></div>
-  <div class="c"></div>
-  <div class="r"></div>
+  <div class="l" />
+  <div class="c" />
+  <div class="r" />
 </div>

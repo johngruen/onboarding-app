@@ -29,7 +29,7 @@
       filteredIds = [];
       selected = selected.map(i => false);
     }
-  }
+  };
 </script>
 
 <style>
@@ -87,27 +87,30 @@
     top: 8px;
     right: 8px;
   }
-
 </style>
 
 <div class="harness">
-<SetLauncher {list} {disabled} on:message={handleMessage}></SetLauncher>
-<ul>
-  {#each cards as card, index}
-    <li>
-      <a href={`/cards/${card.id}`}><MiniCard {...card}/></a>
-      <h4><span>id: {card.id}</span>
-      {#if card.widget}{card.widget} widget{/if}</h4>
-      <div class="check-container">
-      <input
-        type="checkbox"
-        bind:checked={selected[index]}
-        on:change={handleCheckChange}
-        data-index={index}
-        data-value={card.id} />
-      <span class="check"></span>
-      </div>
-    </li>
-  {/each}
-</ul>
+  <SetLauncher {list} {disabled} on:message={handleMessage} />
+  <ul>
+    {#each cards as card, index}
+      <li>
+        <a href={`/cards/${card.id}`}>
+          <MiniCard {...card} />
+        </a>
+        <h4>
+          <span>id: {card.id}</span>
+          {#if card.widget}{card.widget} widget{/if}
+        </h4>
+        <div class="check-container">
+          <input
+            type="checkbox"
+            bind:checked={selected[index]}
+            on:change={handleCheckChange}
+            data-index={index}
+            data-value={card.id} />
+          <span class="check" />
+        </div>
+      </li>
+    {/each}
+  </ul>
 </div>
