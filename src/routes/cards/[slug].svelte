@@ -55,7 +55,7 @@ a:hover {
 		{:else}
 			<a href="/" out:fly="{{duration: 200, y: -40}}">&larr; home</a>
 			<div class="singleton-wrapper">
-				<Card {...cards[0]} {browser}/>
+				<Card {...cards[0]} {browser} preview={true}/>
 			</div>
 		{/if}
 	</Browser>
@@ -66,7 +66,7 @@ a:hover {
 		{:else}
 			<a href="/" out:fly="{{duration: 200, y: -40}}">&larr; home</a>
 			<div class="singleton-wrapper">
-				<Card {...cards[0]} {browser}/>
+				<Card {...cards[0]} {browser} preview={true}/>
 			</div>
 		{/if}
 	</Content>

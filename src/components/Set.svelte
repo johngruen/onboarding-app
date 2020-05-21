@@ -72,7 +72,7 @@
       {/if}
     {/each}
   </div>
-  <div class="pips">
+  <div class="pips" in:fade={{ duration: 0, delay: 0 }}>
     {#each set as card, i}
       {#if i === shown}
         <div class="pip active" on:click={handlePipClick} data-index={i} />

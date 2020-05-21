@@ -1,15 +1,18 @@
 <script>
   import Logo from "./Logo.svelte";
   import Button from "./Button.svelte";
-  import Header from "./Header.svelte";
+  import ZappedContent from "./ZappedContent.svelte";
+  import Theme from "./Widgets/Theme.svelte";
+  import Importer from "./Widgets/Importer.svelte";
+  import SignIn from "./Widgets/SignIn.svelte";
   export let headerContent = "Lorem Ipsum";
   export let zapId = "01";
   export let showZap = true;
   export let showLogo = true;
-  export let showSkip = false;
+  export let showSkip = true;
   export let showSignIn = false;
   export let preview = false;
-  export let skipText = "Skip"
+  export let skipText = "Not now"
   export let buttonText = "button Text"
   export let content = '';
   export let visible = true;
@@ -17,8 +20,6 @@
   export let widget;
 
   const paddingTop = browser ? "padding-top: 24px" : ""
-
-  const scale = preview ? "transform: scale(50%)" : '';
 
   import { createEventDispatcher } from "svelte";
   import { fly, fade, blur } from 'svelte/transition';
@@ -44,9 +45,15 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding: 120px 24px 24px;
+    justify-content: center;
+    padding: 80px 24px 24px;
     text-align: center;
+    height: 100%;
+  }
+
+
+  .card + .card {
+    display: none;
   }
 
   p {
@@ -57,49 +64,49 @@
     font-size: 14px;
     line-height: 22px;
     margin: 0;
-
   }
 
-  a.skip {
-    font-size: 14px;
-    line-height: 22px;
-    color: #80808f;
-    display: block;
-    margin: 40px;
+  .skip {
+    cursor: pointer;
   }
 
-  .theme {
-    background: url(../themes.png) no-repeat center center;
-    width: 639.5px;
-    height: 167.5px;
-    background-size: cover;
+  .account {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+
+  .account a,
+  .skip {
+    color:#0060df;
+    text-decoration: underline;
   }
 </style>
 
 {#if visible}
-    <div class="card" style={scale}>
-    <div class="card-content" style={paddingTop} in:fade="{{duration: 500, delay: 200}}" out:fly="{{x: -100, duration: 250}}">
+    <div class="card" in:fade="{{duration: 500, delay: 500}}" out:fly="{{x: -100, y: 0, duration: 220}}">
+    <div class="card-content" style={paddingTop} >
       {#if showLogo}
         <Logo box={96} margin={24} />
       {/if}
-      <Header {...{headerContent, zapId, showZap}} />
-      {#if content}
-        {@html content}
-        {#if widget === "theme"}
-          <div class="theme"></div>
-        {/if}
-      {:else}
-        <slot></slot>
+      <ZappedContent {...{zapId, showZap}} content={headerContent}/>
+      <p><ZappedContent {...{zapId, showZap}} content={content} size={18} height={28} weight={400}/></p>
+      {#if widget === "theme"}
+        <Theme />
+      {:else if widget === "importer"}
+        <Importer />
+      {:else if widget === "auth"}
+        <SignIn />
       {/if}
       <Button on:click={handleCardButtonClick}>{buttonText}</Button>
       {#if !preview}
-        {#if showSignIn && !preview}
-          <p class="small">Already have an account? <a href="/fxa">Sign in</a></p>
+        {#if showSignIn}
+          <p out:fade="{{duration: 0, delay: 0}}"class="small account">Have an account? <a href="/fxa">Sign in</a></p>
         {/if}
       {/if}
+      {#if !showSignIn && showSkip}
+        <p class="skip small" href="." on:click={handleCardButtonClick}>{skipText}</p>
+      {/if}
     </div>
-    {#if showSkip && !preview}
-      <a class="skip" href=".">{skipText}</a>
-    {/if}
   </div>
 {/if}

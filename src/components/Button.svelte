@@ -5,7 +5,6 @@
 
 <style>
   button {
-    font-weight: 700;
     font-family: metropolis;
     display: flex;
     align-items: center;
